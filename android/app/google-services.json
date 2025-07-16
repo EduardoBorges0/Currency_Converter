@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "537600878721",
+    "project_id": "ucoin-flutter",
+    "storage_bucket": "ucoin-flutter.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:537600878721:android:18c4bb5817d471ca6c8580",
+        "android_client_info": {
+          "package_name": "com.ucoin.u_coin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9e4z3IwTH3ZOxSVCRxG7BQU6xxNbtOa8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
