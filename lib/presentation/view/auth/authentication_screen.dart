@@ -25,6 +25,7 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FormView(
+      authOrRegister: 'Auth',
       onSubmit: (email, password) => LoginUserEvent(email: email, password: password),
     );
   }

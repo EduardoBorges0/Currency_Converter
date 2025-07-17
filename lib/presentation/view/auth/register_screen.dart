@@ -32,6 +32,7 @@ class _RegisterFormState extends State<RegisterForm> {
   @override
   Widget build(BuildContext context) {
     return FormView(
+      authOrRegister: 'Register',
       onSubmit:
           (email, password) => RegisterUserEvent(email: email, password: password),
     );
