@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:u_coin/application/bloc/authentication_event.dart';
+import 'package:u_coin/application/bloc/auth/authentication_event.dart';
 
-import '../../../application/bloc/authentication_bloc.dart';
-import '../../../application/bloc/authentication_state.dart';
+import '../../../application/bloc/auth/authentication_bloc.dart';
+import '../../../application/bloc/auth/authentication_state.dart';
 
 class FormView extends StatefulWidget {
   const FormView({

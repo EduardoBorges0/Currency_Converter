@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:u_coin/application/bloc/authentication_event.dart';
+import 'package:u_coin/application/bloc/auth/authentication_event.dart';
 import 'package:u_coin/presentation/view/auth/form_view.dart';
 
-import '../../../application/bloc/authentication_bloc.dart';
+import '../../../application/bloc/auth/authentication_bloc.dart';
 import '../../../data/repositoriesImpl/authentication_repositories_impl.dart';
 
 class AuthenticationScreen extends StatelessWidget {

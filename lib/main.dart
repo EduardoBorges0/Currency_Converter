@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:u_coin/data/network/crypto_network/crypto_network.dart';
 import 'package:u_coin/presentation/view/auth/authentication_screen.dart';
 import 'package:u_coin/presentation/view/auth/register_screen.dart';
 import 'package:u_coin/presentation/view/currency/currency_coin.dart';
@@ -12,8 +13,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  // Cria o repositório e viewmodel
-  final authRepository = AuthenticationRepositoriesImpl();
+  CryptoNetwork("usd");
 
   runApp(MyApp());
 }
