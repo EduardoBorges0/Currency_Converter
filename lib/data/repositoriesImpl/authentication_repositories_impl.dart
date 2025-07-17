@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:u_coin/domain/repositories/authentication_repositories.dart';
 
 import '../network/firebase/authentication_firebase_auth.dart' as AuthAndRegisterCloud;
@@ -15,21 +16,11 @@ class AuthenticationRepositoriesImpl extends AuthenticationRepositories {
     throw UnimplementedError();
   }
 
-  @override
-  Future<bool> loginUser({required String email, required String password}) {
-    return AuthAndRegisterCloud.auth(email, password)
-        .then((user) {
-          if (user != null) {
-            return true; // Login successful
-          } else {
-            return false; // Login failed
-          }
-        })
-        .catchError((error) {
-          print("Login error: $error");
-          return false; // Handle error and return false
-        });
+  Future<User?> loginUser({required String email, required String password}) {
+    return AuthAndRegisterCloud.auth(email, password);
+    // Não trate o erro aqui, deixe lançar para o BLoC capturar.
   }
+
 
   @override
   Future<bool> logoutUser() {

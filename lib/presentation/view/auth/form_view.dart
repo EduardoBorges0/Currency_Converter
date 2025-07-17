@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:u_coin/application/bloc/authentication_event.dart';
 
 import '../../../application/bloc/authentication_bloc.dart';
 import '../../../application/bloc/authentication_state.dart';
@@ -12,7 +13,7 @@ class FormView extends StatefulWidget {
     required this.authOrRegister,
   });
 
-  final Function(String email, String password) onSubmit;
+  final AuthenticationEvent Function(String email, String password) onSubmit;
   final String authOrRegister;
 
   @override
@@ -86,9 +87,8 @@ class _FormView extends State<FormView> {
                       onPressed: () {
                         final email = _emailController.text.trim();
                         final password = _passwordController.text.trim();
-                        context.read<AuthenticationBloc>().add(
-                          widget.onSubmit(email, password),
-                        );
+                        final event = widget.onSubmit(email, password);
+                        context.read<AuthenticationBloc>().add(event);
                       },
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(Colors.black),

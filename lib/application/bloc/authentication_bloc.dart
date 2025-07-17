@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../domain/repositories/authentication_repositories.dart';
@@ -11,11 +12,17 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     on<RegisterUserEvent>((event, emit) async {
       emit(AuthLoading());
       try {
-        await authRepository.registerUser(
+        bool register = await authRepository.registerUser(
           email: event.email,
           password: event.password,
         );
-        emit(AuthSuccess());
+        if(register){
+          emit(AuthSuccess());
+          return;
+        }else{
+          emit(AuthFailure("Erro ao registrar usuário"));
+          return;
+        }
       } catch (e) {
         emit(AuthFailure("Erro ao registrar"));
       }
@@ -24,14 +31,23 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     on<LoginUserEvent>((event, emit) async {
       emit(AuthLoading());
       try {
-        await authRepository.loginUser(
+        final user = await authRepository.loginUser(
           email: event.email,
           password: event.password,
         );
-        emit(AuthSuccess());
+
+        if (user != null) {
+          emit(AuthSuccess());
+        } else {
+          emit(AuthFailure("Usuário ou senha inválidos"));
+        }
+      } on FirebaseAuthException catch (e) {
+        emit(AuthFailure(e.message ?? "Erro ao fazer login"));
       } catch (e) {
-        emit(AuthFailure("Erro ao fazer login"));
+        emit(AuthFailure("Erro inesperado ao fazer login"));
       }
     });
+
+
   }
 }
