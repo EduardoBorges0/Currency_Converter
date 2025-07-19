@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:u_coin/application/bloc/favorite/favorite_coin_bloc.dart';
 import 'package:u_coin/application/bloc/favorite/favorite_coin_event.dart';
 import 'package:u_coin/application/bloc/favorite/favorite_coin_state.dart';
+import 'package:u_coin/application/bloc/settings/settings_bloc.dart';
 import 'package:u_coin/data/network/firebase/save_favorite_coin_firestore.dart';
 import 'package:u_coin/domain/options/cryptos.dart';
 import '../bottom_navigation.dart';
@@ -12,6 +13,7 @@ import '../settings/settings.dart';
 import 'currency_coin_component.dart';
 
 class CurrencyCoin extends StatefulWidget {
+
   @override
   _CurrencyCoinState createState() => _CurrencyCoinState();
 }
@@ -23,7 +25,7 @@ class _CurrencyCoinState extends State<CurrencyCoin> {
     // Agora tem 3 itens, para cada aba do BottomNavigationBar
     Text('Início', style: TextStyle(fontSize: 30, color: Colors.white)),
     FavoritesCoin(),
-    Settings(),
+    BlocProvider(create: (_) => SettingsBloc(), child: Settings()),
   ];
 
   void _onItemTapped(int index) {

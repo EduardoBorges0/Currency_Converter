@@ -1,24 +1,29 @@
 import 'package:dio/dio.dart';
 import 'package:u_coin/domain/options/cryptos.dart';
 
+import '../../model/crypto_model.dart';
+
 final dio = Dio();
 
-Future<void> CryptoNetwork(String coin) async {
+Future<List<CryptoModel>> CryptoNetwork(String currency) async {
   try {
     String getAllCryptosFormatted() {
       return Cryptos.values.map((c) => c.fullName).join(",");
     }
 
     final response = await dio.get(
-      'https://api.coingecko.com/api/v3/simple/price?ids=${getAllCryptosFormatted()}&vs_currencies=${coin.toLowerCase()}',
+      'https://api.coingecko.com/api/v3/simple/price?ids=${getAllCryptosFormatted()}&vs_currencies=${currency.toLowerCase()}',
     );
 
-    for (int i = 0; i < Cryptos.values.length; i++) {
-      final crypto = Cryptos.values[i];
-      print('Crypto: ${crypto.name}'); // pega "btc", "eth", etc.
-    }
+    final data = response.data as Map<String, dynamic>;
 
+    final cryptos = data.entries.map((entry) {
+      return CryptoModel.fromJson(entry.key, entry.value, currency);
+    }).toList();
+
+    return cryptos;
   } catch (e) {
     print('Erro ao buscar preço: $e');
+    return [];
   }
 }

@@ -64,3 +64,13 @@ Future<void> deleteCoinFirestore(String userId, String coinId) async {
   }
 
 }
+
+Future<void> deleteUserDocument(String userId) async {
+  final userDoc = FirebaseFirestore.instance.collection('Users').doc(userId);
+  try {
+    await userDoc.delete();
+    print('Documento do usuário $userId deletado com sucesso.');
+  } catch (e) {
+    print('Erro ao deletar documento do usuário: $e');
+  }
+}

@@ -7,6 +7,7 @@ import 'package:u_coin/domain/options/cryptos.dart';
 import '../../../../application/bloc/favorite/favorite_coin_bloc.dart';
 import '../../../../application/bloc/favorite/favorite_coin_event.dart';
 import '../../../../application/bloc/favorite/favorite_coin_state.dart';
+import '../../../../data/network/crypto_network/crypto_network.dart';
 import '../../../../data/network/firebase/save_favorite_coin_firestore.dart';
 
 class CurrencyCoinComponent extends StatefulWidget {
@@ -17,6 +18,7 @@ class CurrencyCoinComponent extends StatefulWidget {
   });
   final Cryptos crypto;
   final int i;
+
 
   @override
   State<StatefulWidget> createState() => _CurrencyCoinComponentState();
@@ -64,6 +66,7 @@ class _CurrencyCoinComponentState extends State<CurrencyCoinComponent> {
                   ),
                   builder: (context, snapshot) {
                     final isFavorite = snapshot.data ?? false;
+
                     return IconButton(
                       icon: Icon(
                         isFavorite ? Icons.star : Icons.star_outline,
