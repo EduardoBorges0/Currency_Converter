@@ -20,6 +20,18 @@ Future<bool> verifyCoinExists(String userId, String coinId) async {
   }
   return false;
 }
+Future<List<String>> getUserFavorites(String userId) async {
+  final doc = await FirebaseFirestore.instance.collection('Users').doc(userId).get();
+  final data = doc.data();
+  final currencies = data?['currencies'] as List<dynamic>? ?? [];
+
+  // Mapeia cada moeda para o seu nome (String)
+  final favoriteNames = currencies
+      .map((coin) => coin['name'] as String)
+      .toList();
+
+  return favoriteNames;
+}
 
 Future<void> deleteCoinFirestore(String userId, String coinId) async {
   final userDoc = FirebaseFirestore.instance.collection('Users').doc(userId);
