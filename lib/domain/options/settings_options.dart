@@ -5,6 +5,10 @@ enum SettingsOptions {
     icon: Icons.account_circle,
     title: 'Conta',
   ),
+  language(
+    icon: Icons.monetization_on,
+    title: 'Moeda',
+  ),
   about(
     icon: Icons.info,
     title: 'Sobre',

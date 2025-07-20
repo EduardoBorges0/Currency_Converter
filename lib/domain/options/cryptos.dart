@@ -2,23 +2,18 @@ enum Cryptos {
   btc('bitcoin'),
   eth('ethereum'),
   ltc('litecoin'),
-  bch('bitcoin cash'),
   xrp('ripple'),
   doge('dogecoin'),
   dot('polkadot'),
   ada('cardano'),
   sol('solana'),
-  matic('polygon'),
   uni('uniswap'),
   link('chainlink'),
   xlm('stellar'),
   trx('tron'),
-  bnb('binance coin'),
-  avax('avalanche'),
   algo('algorand'),
   fil('filecoin'),
-  aave('aave'),
-  sushi('sushiswap');
+  aave('aave');
 
   final String fullName;
 
@@ -26,4 +21,16 @@ enum Cryptos {
 
   @override
   String toString() => fullName;
+
+  // Método estático para retornar a lista ordenada
+  static List<Cryptos> get sortedByName {
+    final list = Cryptos.values.toList();
+    list.sort((a, b) => a.fullName.compareTo(b.fullName));
+    return list;
+  }
+
+  // Exemplo de método que retorna os nomes formatados já ordenados
+  static String getAllFormattedSorted() {
+    return sortedByName.map((c) => c.fullName).join(", ");
+  }
 }

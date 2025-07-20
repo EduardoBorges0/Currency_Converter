@@ -1,12 +1,20 @@
+import 'dart:ffi';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
+import 'package:u_coin/application/bloc/crypto/crypto_bloc.dart';
+import 'package:u_coin/application/bloc/crypto/crypto_state.dart';
+import 'package:u_coin/data/offline/preference_coin.dart';
 import 'package:u_coin/domain/options/cryptos.dart';
 
+import '../../../../application/bloc/crypto/crypto_event.dart';
 import '../../../../application/bloc/favorite/favorite_coin_bloc.dart';
 import '../../../../application/bloc/favorite/favorite_coin_event.dart';
 import '../../../../application/bloc/favorite/favorite_coin_state.dart';
+import '../../../../data/model/crypto_model.dart';
 import '../../../../data/network/crypto_network/crypto_network.dart';
 import '../../../../data/network/firebase/save_favorite_coin_firestore.dart';
 
@@ -14,11 +22,13 @@ class CurrencyCoinComponent extends StatefulWidget {
   const CurrencyCoinComponent({
     super.key,
     required this.crypto,
-    required this.i
+    required this.price,
+    required this.i,
   });
+
   final Cryptos crypto;
   final int i;
-
+  final double price;
 
   @override
   State<StatefulWidget> createState() => _CurrencyCoinComponentState();
@@ -39,23 +49,51 @@ class _CurrencyCoinComponentState extends State<CurrencyCoinComponent> {
               fit: BoxFit.contain,
             ),
             const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                widget.crypto.fullName,
-                style: const TextStyle(
-                  fontSize: 18,
-                  color: Colors.white,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.crypto.fullName,
+                  style: const TextStyle(fontSize: 18, color: Colors.white),
+                  overflow: TextOverflow.ellipsis,
                 ),
-                overflow: TextOverflow.ellipsis,
-              ),
+                FutureBuilder<Map<String, String>>(
+                  future: PreferenceCoin().getPreferenceLocaleAndSymbol(),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return const Text(
+                        'Carregando...',
+                        style: TextStyle(fontSize: 14, color: Colors.white),
+                      );
+                    }
+
+                    final prefs = snapshot.data!;
+                    final locale = prefs['language']!;
+                    final symbol = prefs['symbol']!;
+
+                    final formattedPrice = NumberFormat.currency(
+                      locale: locale,
+                      symbol: symbol + '', // adiciona um espaço após o símbolo
+                    ).format(widget.price);
+
+                    return Text(
+                      formattedPrice,
+                      style: const TextStyle(fontSize: 14, color: Colors.white),
+                      overflow: TextOverflow.ellipsis,
+                    );
+                  },
+                ),
+
+
+              ],
             ),
+            const Spacer(),
             BlocConsumer<FavoriteCoinBloc, FavoriteCoinState>(
               listener: (context, state) {
-                if (state is FavoriteCoinSuccess) {
-                } else if (state is FavoriteCoinFailure) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(state.error)),
-                  );
+                if (state is FavoriteCoinFailure) {
+                  ScaffoldMessenger.of(
+                    context,
+                  ).showSnackBar(SnackBar(content: Text(state.error)));
                 }
               },
               builder: (context, state) {
@@ -91,17 +129,15 @@ class _CurrencyCoinComponentState extends State<CurrencyCoinComponent> {
                             ),
                           );
                         }
-
-                        setState(() {}); // Refaz o FutureBuilder para reavaliar se está favoritado
                       },
                     );
                   },
                 );
               },
-            )
-
+            ),
           ],
         ),
+
         const SizedBox(height: 10),
         if (widget.i != Cryptos.values.length - 1)
           const Divider(color: Colors.grey),

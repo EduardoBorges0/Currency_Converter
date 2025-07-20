@@ -60,6 +60,8 @@ class _SettingsViewState extends State<Settings> {
                               case SettingsOptions.logout:
                                 context.read<SettingsBloc>().add(LogoutEvent());
                                 break;
+                              case SettingsOptions.language:
+                                Navigator.pushNamed(context, '/settings/choose_preference');
                             }
                           },
                         ),

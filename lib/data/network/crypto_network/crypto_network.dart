@@ -8,7 +8,7 @@ final dio = Dio();
 Future<List<CryptoModel>> CryptoNetwork(String currency) async {
   try {
     String getAllCryptosFormatted() {
-      return Cryptos.values.map((c) => c.fullName).join(",");
+      return Cryptos.sortedByName.map((c) => c.fullName).join(",");
     }
 
     final response = await dio.get(
@@ -17,9 +17,10 @@ Future<List<CryptoModel>> CryptoNetwork(String currency) async {
 
     final data = response.data as Map<String, dynamic>;
 
-    final cryptos = data.entries.map((entry) {
-      return CryptoModel.fromJson(entry.key, entry.value, currency);
-    }).toList();
+    final cryptos =
+        data.entries.map((entry) {
+          return CryptoModel.fromJson(entry.key, entry.value, currency);
+        }).toList();
 
     return cryptos;
   } catch (e) {
