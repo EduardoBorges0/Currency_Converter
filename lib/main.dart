@@ -9,7 +9,7 @@ import 'package:u_coin/data/network/crypto_network/crypto_network.dart';
 import 'package:u_coin/data/network/firebase/save_favorite_coin_firestore.dart';
 import 'package:u_coin/presentation/view/auth/authentication_screen.dart';
 import 'package:u_coin/presentation/view/auth/register_screen.dart';
-import 'package:u_coin/presentation/view/bottom_navigation/currency/currency_coin_view.dart';
+import 'package:u_coin/presentation/view/bottom_navigation/currency/currency_coin_screen.dart';
 import 'package:u_coin/presentation/view/bottom_navigation/settings/options/account_screen.dart';
 import 'package:u_coin/presentation/view/bottom_navigation/settings/options/choose_preference_coin.dart';
 import 'application/bloc/favorite/favorite_coin_bloc.dart';
@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
             BlocProvider(create: (_) => FavoriteCoinBloc(cryptoRepository)),
             BlocProvider(create: (_) => CryptoBloc()),
           ],
-          child: CurrencyCoin(),
+          child: CurrencyCoinScreen(),
         ),
       },
       title: 'Flutter Demo',
@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
               BlocProvider(create: (_) => FavoriteCoinBloc(cryptoRepository)),
               BlocProvider(create: (_) => CryptoBloc())
             ],
-                child: CurrencyCoin(),
+                child: CurrencyCoinScreen(),
               )
               : AuthenticationScreen(),
     );

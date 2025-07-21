@@ -13,22 +13,22 @@ import '../../../../application/bloc/crypto/crypto_bloc.dart';
 import '../../../../application/bloc/crypto/crypto_event.dart';
 import '../../../../data/model/crypto_model.dart';
 import '../bottom_navigation.dart';
-import '../favorites/favorites_coin.dart';
-import '../settings/settings.dart';
-import 'currency_coin_component.dart';
+import '../favorites/favorites_coin_screen.dart';
+import '../settings/settings_screen.dart';
+import '../common/widget/currency_coin_view.dart';
 
-class CurrencyCoin extends StatefulWidget {
+class CurrencyCoinScreen extends StatefulWidget {
   @override
   _CurrencyCoinState createState() => _CurrencyCoinState();
 }
 
-class _CurrencyCoinState extends State<CurrencyCoin> {
+class _CurrencyCoinState extends State<CurrencyCoinScreen> {
   int _selectedIndex = 0;
 
-  static List<Widget> _pages = <Widget>[
+  static final List<Widget> _pages = <Widget>[
     Text('Início', style: TextStyle(fontSize: 30, color: Colors.white)),
-    FavoritesCoin(),
-    BlocProvider(create: (_) => SettingsBloc(), child: Settings()),
+    FavoritesCoinScreen(),
+    BlocProvider(create: (_) => SettingsBloc(), child: SettingScreen()),
   ];
 
   void _onItemTapped(int index) {
@@ -40,7 +40,6 @@ class _CurrencyCoinState extends State<CurrencyCoin> {
   @override
   void initState() {
     super.initState();
-    // Disparar evento assim que a tela carregar
     context.read<CryptoBloc>().add(
       FetchCryptoEvent(),
     );
@@ -72,7 +71,7 @@ class _CurrencyCoinState extends State<CurrencyCoin> {
                     horizontal: 16,
                     vertical: 8,
                   ),
-                  child: CurrencyCoinComponent(
+                  child: CurrencyCoinView(
                     crypto: crypto,
                     i: i,
                     price: cryptosList[i].price,

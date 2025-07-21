@@ -34,6 +34,7 @@ class _FormView extends State<FormView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFF141414),
       body: Center(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 32.0),
@@ -42,11 +43,17 @@ class _FormView extends State<FormView> {
             children: [
               TextField(
                 controller: _emailController,
-                cursorColor: Colors.black,
-                style: const TextStyle(color: Colors.black),
+                cursorColor: Colors.black45,
+                style: const TextStyle(
+                  color: Colors.black,
+                ),
                 decoration: const InputDecoration(
-                  labelText: 'Email',
-                  border: OutlineInputBorder(),
+                  hintText: 'Email',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(12)), // 👈 arredondamento
+                    borderSide: BorderSide.none, // remove a borda preta padrão
+                  ),                  filled: true,
+                  fillColor: Colors.white,
                 ),
               ),
               const SizedBox(height: 20),
@@ -56,8 +63,13 @@ class _FormView extends State<FormView> {
                 cursorColor: Colors.black,
                 style: const TextStyle(color: Colors.black),
                 decoration: InputDecoration(
-                  labelText: 'Password',
-                  border: const OutlineInputBorder(),
+                  hintText: 'Password',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(12)), // 👈 arredondamento
+                    borderSide: BorderSide.none, // remove a borda preta padrão
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
                   suffixIcon: IconButton(
                     icon: Icon(
                       _obscureText ? Icons.visibility_off : Icons.visibility,
@@ -72,8 +84,9 @@ class _FormView extends State<FormView> {
                   if (state is AuthSuccess) {
                     Navigator.pushReplacementNamed(context, '/main');
                   } else if (state is AuthFailure) {
-                    ScaffoldMessenger.of(context)
-                        .showSnackBar(SnackBar(content: Text(state.error)));
+                    ScaffoldMessenger.of(
+                      context,
+                    ).showSnackBar(SnackBar(content: Text(state.error)));
                   }
                 },
                 builder: (context, state) {
@@ -91,15 +104,23 @@ class _FormView extends State<FormView> {
                         context.read<AuthenticationBloc>().add(event);
                       },
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Colors.black),
+                        backgroundColor: MaterialStateProperty.all(
+                          Colors.white,
+                        ),
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                        ),
                         shadowColor: MaterialStateProperty.all(Colors.grey),
                         elevation: MaterialStateProperty.all(8),
-                        minimumSize:
-                        MaterialStateProperty.all(const Size(200, 50)),
+                        minimumSize: MaterialStateProperty.all(
+                          const Size(200, 50),
+                        ),
                       ),
                       child: Text(
                         widget.authOrRegister == 'Auth' ? 'Login' : 'Cadastrar',
-                        style: const TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.black45),
                       ),
                     ),
                   );
@@ -107,16 +128,21 @@ class _FormView extends State<FormView> {
               ),
               const SizedBox(height: 20),
               TextButton(
-                onPressed: () => {
-                  if(widget.authOrRegister == 'Auth') {
-                    Navigator.pushReplacementNamed(context, '/register')
-                  } else {
-                    Navigator.pushReplacementNamed(context, '/login')
-                  }
-                },
-                child: Text(widget.authOrRegister == 'Auth'
-                    ? 'Não tem uma conta? Cadastre-se'
-                    : 'Já tem uma conta? Faça login'),
+                style: ButtonStyle(
+                  foregroundColor: MaterialStateProperty.all(Colors.white),
+                ),
+                onPressed:
+                    () => {
+                      if (widget.authOrRegister == 'Auth')
+                        {Navigator.pushReplacementNamed(context, '/register')}
+                      else
+                        {Navigator.pushReplacementNamed(context, '/login')},
+                    },
+                child: Text(
+                  widget.authOrRegister == 'Auth'
+                      ? 'Não tem uma conta? Cadastre-se'
+                      : 'Já tem uma conta? Faça login',
+                ),
               ),
             ],
           ),

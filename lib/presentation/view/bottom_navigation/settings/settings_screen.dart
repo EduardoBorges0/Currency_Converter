@@ -8,12 +8,12 @@ import 'package:u_coin/domain/options/settings_options.dart';
 import '../../../../application/bloc/settings/settings_bloc.dart';
 import '../../../../application/bloc/settings/settings_event.dart';
 
-class Settings extends StatefulWidget {
+class SettingScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _SettingsViewState();
 }
 
-class _SettingsViewState extends State<Settings> {
+class _SettingsViewState extends State<SettingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,9 +53,6 @@ class _SettingsViewState extends State<Settings> {
                             switch (option) {
                               case SettingsOptions.account:
                                 Navigator.pushNamed(context, '/account');
-                                break;
-                              case SettingsOptions.about:
-                                Navigator.pushNamed(context, '/about');
                                 break;
                               case SettingsOptions.logout:
                                 context.read<SettingsBloc>().add(LogoutEvent());

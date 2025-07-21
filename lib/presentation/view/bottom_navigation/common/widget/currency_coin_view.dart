@@ -10,16 +10,16 @@ import 'package:u_coin/application/bloc/crypto/crypto_state.dart';
 import 'package:u_coin/data/offline/preference_coin.dart';
 import 'package:u_coin/domain/options/cryptos.dart';
 
-import '../../../../application/bloc/crypto/crypto_event.dart';
-import '../../../../application/bloc/favorite/favorite_coin_bloc.dart';
-import '../../../../application/bloc/favorite/favorite_coin_event.dart';
-import '../../../../application/bloc/favorite/favorite_coin_state.dart';
-import '../../../../data/model/crypto_model.dart';
-import '../../../../data/network/crypto_network/crypto_network.dart';
-import '../../../../data/network/firebase/save_favorite_coin_firestore.dart';
+import '../../../../../application/bloc/crypto/crypto_event.dart';
+import '../../../../../application/bloc/favorite/favorite_coin_bloc.dart';
+import '../../../../../application/bloc/favorite/favorite_coin_event.dart';
+import '../../../../../application/bloc/favorite/favorite_coin_state.dart';
+import '../../../../../data/model/crypto_model.dart';
+import '../../../../../data/network/crypto_network/crypto_network.dart';
+import '../../../../../data/network/firebase/save_favorite_coin_firestore.dart';
 
-class CurrencyCoinComponent extends StatefulWidget {
-  const CurrencyCoinComponent({
+class CurrencyCoinView extends StatefulWidget {
+  const CurrencyCoinView({
     super.key,
     required this.crypto,
     required this.price,
@@ -34,7 +34,7 @@ class CurrencyCoinComponent extends StatefulWidget {
   State<StatefulWidget> createState() => _CurrencyCoinComponentState();
 }
 
-class _CurrencyCoinComponentState extends State<CurrencyCoinComponent> {
+class _CurrencyCoinComponentState extends State<CurrencyCoinView> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -73,7 +73,7 @@ class _CurrencyCoinComponentState extends State<CurrencyCoinComponent> {
 
                     final formattedPrice = NumberFormat.currency(
                       locale: locale,
-                      symbol: symbol + '', // adiciona um espaço após o símbolo
+                      symbol: symbol,
                     ).format(widget.price);
 
                     return Text(
@@ -83,8 +83,6 @@ class _CurrencyCoinComponentState extends State<CurrencyCoinComponent> {
                     );
                   },
                 ),
-
-
               ],
             ),
             const Spacer(),

@@ -9,10 +9,6 @@ enum SettingsOptions {
     icon: Icons.monetization_on,
     title: 'Moeda',
   ),
-  about(
-    icon: Icons.info,
-    title: 'Sobre',
-  ),
   logout(
     icon: Icons.logout,
     title: 'Sair',

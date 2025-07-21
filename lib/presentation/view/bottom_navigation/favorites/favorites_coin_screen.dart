@@ -9,10 +9,10 @@ import 'package:u_coin/data/model/crypto_model.dart';
 import 'package:u_coin/data/network/firebase/save_favorite_coin_firestore.dart';
 import 'package:u_coin/data/repositoriesImpl/crypto_repositories_impl.dart';
 import 'package:u_coin/domain/options/cryptos.dart';
-import 'package:u_coin/presentation/view/bottom_navigation/currency/currency_coin_component.dart';
+import 'package:u_coin/presentation/view/bottom_navigation/common/widget/currency_coin_view.dart';
 
-class FavoritesCoin extends StatelessWidget {
-  FavoritesCoin({super.key});
+class FavoritesCoinScreen extends StatelessWidget {
+  FavoritesCoinScreen({super.key});
 
   final cryptoRepository = CryptoRepositoriesImpl();
 
@@ -80,7 +80,7 @@ class _FavoritesCoinViewState extends State<FavoritesCoinView> {
 
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: CurrencyCoinComponent(
+              child: CurrencyCoinView(
                 crypto: crypto,
                 i: i,
                 price: match.price,
