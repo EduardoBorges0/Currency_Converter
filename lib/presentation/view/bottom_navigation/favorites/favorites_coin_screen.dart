@@ -9,7 +9,8 @@ import 'package:u_coin/data/model/crypto_model.dart';
 import 'package:u_coin/data/network/firebase/save_favorite_coin_firestore.dart';
 import 'package:u_coin/data/repositoriesImpl/crypto_repositories_impl.dart';
 import 'package:u_coin/domain/options/cryptos.dart';
-import 'package:u_coin/presentation/view/bottom_navigation/common/widget/currency_coin_view.dart';
+
+import '../../common/widget/currency_coin_view.dart';
 
 class FavoritesCoinScreen extends StatelessWidget {
   FavoritesCoinScreen({super.key});
@@ -63,7 +64,7 @@ class _FavoritesCoinViewState extends State<FavoritesCoinView> {
         final cryptoState = context.watch<CryptoBloc>().state;
 
         if (cryptoState is! CryptoSuccess<List<CryptoModel>>) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator(color: Colors.white));
         }
 
         final cryptosList = cryptoState.data;

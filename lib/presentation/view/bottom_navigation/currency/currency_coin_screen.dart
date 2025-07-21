@@ -12,10 +12,10 @@ import 'package:u_coin/domain/options/cryptos.dart';
 import '../../../../application/bloc/crypto/crypto_bloc.dart';
 import '../../../../application/bloc/crypto/crypto_event.dart';
 import '../../../../data/model/crypto_model.dart';
+import '../../common/widget/currency_coin_view.dart';
 import '../bottom_navigation.dart';
 import '../favorites/favorites_coin_screen.dart';
 import '../settings/settings_screen.dart';
-import '../common/widget/currency_coin_view.dart';
 
 class CurrencyCoinScreen extends StatefulWidget {
   @override
@@ -49,16 +49,12 @@ class _CurrencyCoinState extends State<CurrencyCoinScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF141414),
-      appBar: AppBar(
-        title: const Text('Criptomoedas'),
-        backgroundColor: const Color(0xFF141414),
-        foregroundColor: const Color(0xFFE0E0E0),
-      ),
-      body: _selectedIndex == 0
+      body: Padding(padding: EdgeInsets.only(top: 40), child:
+      _selectedIndex == 0
           ? BlocBuilder<CryptoBloc, CryptoState>(
         builder: (context, state) {
           if (state is CryptoLoading) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator(color: Colors.white));
           } else if (state is CryptoSuccess<List<CryptoModel>>) {
             final cryptosList = state.data;
             return ListView.builder(
@@ -86,7 +82,8 @@ class _CurrencyCoinState extends State<CurrencyCoinScreen> {
           }
         },
       )
-          : Center(child: _pages[_selectedIndex]),
+          : Center(child: _pages[_selectedIndex])
+      ),
       bottomNavigationBar: BottomNavigation(
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,

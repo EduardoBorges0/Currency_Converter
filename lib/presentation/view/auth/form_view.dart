@@ -5,6 +5,7 @@ import 'package:u_coin/application/bloc/auth/authentication_event.dart';
 
 import '../../../application/bloc/auth/authentication_bloc.dart';
 import '../../../application/bloc/auth/authentication_state.dart';
+import '../common/widget/text_field_widget.dart';
 
 class FormView extends StatefulWidget {
   const FormView({
@@ -23,61 +24,32 @@ class FormView extends StatefulWidget {
 class _FormView extends State<FormView> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  bool _obscureText = true;
-
-  void _toggleVisibility() {
-    setState(() {
-      _obscureText = !_obscureText;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFF141414),
-      body: Center(
-        child: Container(
+      body: Container(
           padding: const EdgeInsets.symmetric(horizontal: 32.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: SingleChildScrollView(
+            child: Column(
             children: [
-              TextField(
+              const SizedBox(height: 30),
+              Image.asset(
+                'assets/logo_app.png'
+              ),
+              TextFieldWidget(
                 controller: _emailController,
-                cursorColor: Colors.black45,
-                style: const TextStyle(
-                  color: Colors.black,
-                ),
-                decoration: const InputDecoration(
-                  hintText: 'Email',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(12)), // 👈 arredondamento
-                    borderSide: BorderSide.none, // remove a borda preta padrão
-                  ),                  filled: true,
-                  fillColor: Colors.white,
-                ),
+                hintText: 'Email',
+                isPasswordField: false,
               ),
               const SizedBox(height: 20),
-              TextField(
+              TextFieldWidget(
                 controller: _passwordController,
-                obscureText: _obscureText,
-                cursorColor: Colors.black,
-                style: const TextStyle(color: Colors.black),
-                decoration: InputDecoration(
-                  hintText: 'Password',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(12)), // 👈 arredondamento
-                    borderSide: BorderSide.none, // remove a borda preta padrão
-                  ),
-                  filled: true,
-                  fillColor: Colors.white,
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      _obscureText ? Icons.visibility_off : Icons.visibility,
-                    ),
-                    onPressed: _toggleVisibility,
-                  ),
-                ),
+                hintText: 'Password',
+                isPasswordField: true,
               ),
+
               const SizedBox(height: 20),
               BlocConsumer<AuthenticationBloc, AuthenticationState>(
                 listener: (context, state) {
@@ -91,7 +63,7 @@ class _FormView extends State<FormView> {
                 },
                 builder: (context, state) {
                   if (state is AuthLoading) {
-                    return const CircularProgressIndicator();
+                    return const CircularProgressIndicator(color: Colors.white);
                   }
                   return SizedBox(
                     width: 350,
@@ -144,10 +116,12 @@ class _FormView extends State<FormView> {
                       : 'Já tem uma conta? Faça login',
                 ),
               ),
+
             ],
+
           ),
         ),
-      ),
+      )
     );
   }
 }
