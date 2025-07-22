@@ -10,10 +10,4 @@ abstract class AuthenticationRepositories {
     required String email,
     required String password,
   });
-
-  Future<bool> logoutUser();
-
-  Future<bool> isLoggedIn();
-
-  Future<String?> getCurrentUserId();
 }

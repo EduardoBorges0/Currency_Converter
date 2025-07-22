@@ -5,23 +5,9 @@ import '../network/firebase/authentication_firebase_auth.dart' as AuthAndRegiste
 
 class AuthenticationRepositoriesImpl extends AuthenticationRepositories {
   @override
-  Future<String?> getCurrentUserId() {
-    // TODO: implement getCurrentUserId
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<bool> isLoggedIn() {
-    // TODO: implement isLoggedIn
-    throw UnimplementedError();
-  }
-
   Future<User?> loginUser({required String email, required String password}) {
     return AuthAndRegisterCloud.auth(email, password);
-    // Não trate o erro aqui, deixe lançar para o BLoC capturar.
   }
-
-
   @override
   Future<bool> logoutUser() {
     // TODO: implement logoutUser
@@ -43,7 +29,5 @@ class AuthenticationRepositoriesImpl extends AuthenticationRepositories {
           return false; // Handle error and return false
         });
   }
-  // This class will implement the methods for authentication and registration
-  // For example, it could include methods like login, register, logout, etc.
 
 }

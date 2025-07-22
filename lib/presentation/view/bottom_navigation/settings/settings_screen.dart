@@ -28,8 +28,8 @@ class _SettingsViewState extends State<SettingScreen> {
                 if (state is SettingsSuccess) {
                   Navigator.pushNamedAndRemoveUntil(
                     context,
-                    '/login',              // nova rota
-                        (Route<dynamic> route) => false, // remove tudo que veio antes
+                    '/login',
+                    (Route<dynamic> route) => false,
                   );
                 } else if (state is SettingsFailure) {
                   ScaffoldMessenger.of(
@@ -58,7 +58,10 @@ class _SettingsViewState extends State<SettingScreen> {
                                 context.read<SettingsBloc>().add(LogoutEvent());
                                 break;
                               case SettingsOptions.language:
-                                Navigator.pushNamed(context, '/settings/choose_preference');
+                                Navigator.pushNamed(
+                                  context,
+                                  '/settings/choose_preference',
+                                );
                             }
                           },
                         ),

@@ -30,7 +30,7 @@ class PreferenceCoin{
   Future<String> getPreferenceCoin() async {
     final prefs = await SharedPreferences.getInstance();
     String? preferenceLanguage = prefs.getString(PREFERENCE_COIN_KEY);
-    return preferenceLanguage ?? 'BRL'; // Default value or fetched value
+    return preferenceLanguage ?? 'BRL';
   }
 
 }
